@@ -56,21 +56,22 @@ export const PromptEditor = () => {
     remove(index);
   };
 
-  console.log("🚀 ~ PromptEditor ~ fields:", fields);
-
   const onSubmit = (data: any) => {
     console.log(data);
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        className="flex-1 flex flex-col gap-2"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <div className="flex gap-2">
           <FormField
             control={form.control}
             name="prompt"
             render={({ field }) => (
-              <FormItem className="">
+              <FormItem className="w-full">
                 <FormLabel>Prompt</FormLabel>
                 <FormControl>
                   <Input
@@ -105,6 +106,7 @@ export const PromptEditor = () => {
         </div>
 
         {/* ADD: custom list of fields, probably we will need to change the structure */}
+
         {fields.map((field, index) => (
           <Field
             index={index}

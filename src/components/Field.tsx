@@ -1,8 +1,9 @@
 import React, { FC } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { Trash2 } from "lucide-react";
 
-import { FieldType, FieldTypes, IField } from "@/interfaces";
+import { FieldTypes, IField } from "@/interfaces";
 
-import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import {
   Select,
@@ -20,9 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { UseFormReturn } from "react-hook-form";
 import { Button } from "./ui/button";
-import { Trash2 } from "lucide-react";
 
 interface FieldProps {
   field: IField;
@@ -31,21 +30,21 @@ interface FieldProps {
   onDelete: (index: number) => void;
 }
 
-export const Field: FC<FieldProps> = ({ field, onDelete, form, index }) => {
-  const { id, name, type, description } = field;
+export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
+  const showLabel = index === 0;
 
   const handleDelete = () => {
     onDelete(index);
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 items-end">
       <FormField
         control={form.control}
         name={`fields.${index}.name`}
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>Name</FormLabel>
+          <FormItem className="flex-1">
+            {showLabel && <FormLabel>Name</FormLabel>}
             <FormControl>
               <Input placeholder="name" {...field} />
             </FormControl>
@@ -58,11 +57,11 @@ export const Field: FC<FieldProps> = ({ field, onDelete, form, index }) => {
         control={form.control}
         name={`fields.${index}.type`}
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>Type</FormLabel>
+          <FormItem className="flex-1">
+            {showLabel && <FormLabel>Type</FormLabel>}
             <FormControl>
               <Select onValueChange={field.onChange} value={field.value}>
-                <SelectTrigger className="w-[150px]">
+                <SelectTrigger>
                   <SelectValue placeholder="Select a type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -86,8 +85,8 @@ export const Field: FC<FieldProps> = ({ field, onDelete, form, index }) => {
         control={form.control}
         name={`fields.${index}.description`}
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>Description</FormLabel>
+          <FormItem className="flex-1">
+            {showLabel && <FormLabel>Description</FormLabel>}
             <FormControl>
               <Input placeholder="description" {...field} />
             </FormControl>
@@ -96,8 +95,8 @@ export const Field: FC<FieldProps> = ({ field, onDelete, form, index }) => {
         )}
       />
 
-      <Button onClick={handleDelete}>
-        <Trash2 />
+      <Button size="icon" variant="outline" onClick={handleDelete}>
+        <Trash2 size={16} />
       </Button>
     </div>
   );

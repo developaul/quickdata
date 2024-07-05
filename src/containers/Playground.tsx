@@ -1,17 +1,16 @@
 import React from "react";
 
-import { PromptEditor } from "@/components";
+import { OutputViewer, PromptEditor } from "@/components";
 
 export const Playground = () => {
   return (
-    <section className="flex flex-col gap-4 p-4">
+    <section className="flex flex-col gap-4 p-4 max-w-4xl w-full">
       {/* Add: Descriptions and examples topics to start */}
 
       <div className="flex flex-col md:flex-row gap-4">
-        {/* ADD: Code structure editor */}
         <PromptEditor />
 
-        {/* ADD: Output viewer */}
+        <OutputViewer />
       </div>
     </section>
   );
