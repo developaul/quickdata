@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { PlusIcon } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 
 import { FieldType, IField } from "@/interfaces";
 
@@ -22,24 +21,30 @@ import {
 import { DataMockerContext } from "@/providers";
 import { formSchema } from "@/lib/schemas";
 
-export const PromptEditor = () => {
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    // defaultValues: {
-    //   prompt: "Top science fiction books read in 2020",
-    //   limit: 10,
-    //   fields: [
-    //     {
-    //       id: Date.now().toString(),
-    //       name: "name",
-    //       type: FieldType.String,
-    //       description: "name",
-    //     },
-    //   ],
-    // },
-  });
+export interface PromptEditorForm {
+  prompt: string;
+  limit: number;
+  fields: IField[];
+}
 
-  // console.log("🚀 ~ PromptEditor ~ form:", );
+export const PromptEditor = () => {
+  const { generateMockData } = useContext(DataMockerContext);
+
+  const form = useForm<PromptEditorForm>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      prompt: "Top science fiction books read in 2020",
+      limit: 10,
+      fields: [
+        {
+          id: Date.now().toString(),
+          name: "name",
+          type: FieldType.String,
+          description: "name of the book",
+        },
+      ],
+    },
+  });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -61,15 +66,11 @@ export const PromptEditor = () => {
     remove(index);
   };
 
-  const submit = async (data: any) => {
-    console.log("🚀 ~ PromptEditor ~ data:", data);
-  };
-
   return (
     <Form {...form}>
       <form
         className="flex-1 flex flex-col gap-2"
-        onSubmit={form.handleSubmit(submit)}
+        onSubmit={form.handleSubmit(generateMockData)}
       >
         <div className="flex gap-2">
           <FormField
@@ -77,7 +78,7 @@ export const PromptEditor = () => {
             name="prompt"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Prompt</FormLabel>
+                <FormLabel>Prompt*</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Top science fiction books read in 2020"
@@ -94,7 +95,7 @@ export const PromptEditor = () => {
             name="limit"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Limit</FormLabel>
+                <FormLabel>Limit*</FormLabel>
                 <FormControl>
                   <Input
                     className="max-w-24"
@@ -109,8 +110,6 @@ export const PromptEditor = () => {
           />
         </div>
 
-        {/* ADD: custom list of fields, probably we will need to change the structure */}
-
         {fields.map((field, index) => (
           <Field
             index={index}
@@ -121,13 +120,16 @@ export const PromptEditor = () => {
           />
         ))}
 
-        {/* ADD: button to add new field */}
-        <Button type="button" className="w-full" onClick={addField}>
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          onClick={addField}
+        >
           <PlusIcon />
           Add Field
         </Button>
 
-        {/* ADD: Submit button */}
         <Button type="submit" className="w-full">
           Generate JSON
         </Button>

@@ -15,13 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
+import { FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { Button } from "./ui/button";
 
 interface FieldProps {
@@ -48,7 +42,7 @@ export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
           const hasError = (formState.errors as any).fields?.[index]?.name;
           return (
             <FormItem className="flex-1">
-              {showLabel && <FormLabel>Name</FormLabel>}
+              {showLabel && <FormLabel>Name*</FormLabel>}
               <FormControl
                 className={clsx({
                   ["border-red-500 focus-visible:outline-red-500"]: hasError,
@@ -66,7 +60,7 @@ export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
         name={`fields.${index}.type`}
         render={({ field }) => (
           <FormItem className="flex-1">
-            {showLabel && <FormLabel>Type</FormLabel>}
+            {showLabel && <FormLabel>Type*</FormLabel>}
             <FormControl>
               <Select onValueChange={field.onChange} value={field.value}>
                 <SelectTrigger>
@@ -84,7 +78,6 @@ export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
                 </SelectContent>
               </Select>
             </FormControl>
-            <FormMessage />
           </FormItem>
         )}
       />
@@ -98,7 +91,6 @@ export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
             <FormControl>
               <Input placeholder="description" {...field} />
             </FormControl>
-            <FormMessage />
           </FormItem>
         )}
       />

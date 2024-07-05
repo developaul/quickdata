@@ -1,12 +1,11 @@
 "use client";
 
 import { createContext } from "react";
-import { z } from "zod";
 
-import { formSchema } from "@/lib/schemas";
+import { PromptEditorForm } from "@/components";
 
 interface DataMockerContextArgs {
-  generateMockData: (data: z.infer<typeof formSchema>) => Promise<void>;
+  generateMockData: (data: PromptEditorForm) => Promise<void>;
   loading: boolean;
   data: any;
 }
