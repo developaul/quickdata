@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import { useContext } from "react";
 import { PlusIcon } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { FieldType, IField } from "@/interfaces";
@@ -18,24 +19,28 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-
-const formSchema = z.object({
-  prompt: z.string({ message: "Prompt is required" }),
-  limit: z.number().default(10),
-  fields: z.array(
-    z.object({
-      id: z.string().default(Date.now().toString()),
-      name: z.string({ message: "Name is required" }),
-      type: z.enum(["String", "Number", "Boolean"], {
-        message: "Type is required",
-      }),
-      description: z.string({ message: "Description is required" }),
-    })
-  ),
-});
+import { DataMockerContext } from "@/providers";
+import { formSchema } from "@/lib/schemas";
 
 export const PromptEditor = () => {
-  const form = useForm();
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    // defaultValues: {
+    //   prompt: "Top science fiction books read in 2020",
+    //   limit: 10,
+    //   fields: [
+    //     {
+    //       id: Date.now().toString(),
+    //       name: "name",
+    //       type: FieldType.String,
+    //       description: "name",
+    //     },
+    //   ],
+    // },
+  });
+
+  // console.log("🚀 ~ PromptEditor ~ form:", );
+
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "fields",
@@ -56,15 +61,15 @@ export const PromptEditor = () => {
     remove(index);
   };
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const submit = async (data: any) => {
+    console.log("🚀 ~ PromptEditor ~ data:", data);
   };
 
   return (
     <Form {...form}>
       <form
         className="flex-1 flex flex-col gap-2"
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(submit)}
       >
         <div className="flex gap-2">
           <FormField
@@ -95,7 +100,6 @@ export const PromptEditor = () => {
                     className="max-w-24"
                     placeholder="10"
                     type="number"
-                    min={1}
                     {...field}
                   />
                 </FormControl>

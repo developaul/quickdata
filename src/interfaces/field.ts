@@ -1,7 +1,7 @@
 export const enum FieldType {
-  String = "String",
-  Number = "Number",
-  Boolean = "Boolean",
+  String = "string",
+  Number = "number",
+  Boolean = "boolean",
 }
 
 export const FieldTypes = [

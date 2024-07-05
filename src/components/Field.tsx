@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { Trash2 } from "lucide-react";
+import clsx from "clsx";
 
 import { FieldTypes, IField } from "@/interfaces";
 
@@ -25,9 +26,10 @@ import { Button } from "./ui/button";
 
 interface FieldProps {
   field: IField;
-  form: UseFormReturn<any, any>;
-  index: number;
   onDelete: (index: number) => void;
+
+  index: number;
+  form: UseFormReturn<any, any>;
 }
 
 export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
@@ -42,15 +44,21 @@ export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
       <FormField
         control={form.control}
         name={`fields.${index}.name`}
-        render={({ field }) => (
-          <FormItem className="flex-1">
-            {showLabel && <FormLabel>Name</FormLabel>}
-            <FormControl>
-              <Input placeholder="name" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
+        render={({ field, formState }) => {
+          const hasError = (formState.errors as any).fields?.[index]?.name;
+          return (
+            <FormItem className="flex-1">
+              {showLabel && <FormLabel>Name</FormLabel>}
+              <FormControl
+                className={clsx({
+                  ["border-red-500 focus-visible:outline-red-500"]: hasError,
+                })}
+              >
+                <Input placeholder="name" {...field} />
+              </FormControl>
+            </FormItem>
+          );
+        }}
       />
 
       <FormField
@@ -84,7 +92,7 @@ export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
       <FormField
         control={form.control}
         name={`fields.${index}.description`}
-        render={({ field }) => (
+        render={({ field, formState }) => (
           <FormItem className="flex-1">
             {showLabel && <FormLabel>Description</FormLabel>}
             <FormControl>
