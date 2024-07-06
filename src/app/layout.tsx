@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+
 import "./globals.css";
 
 import {
@@ -45,6 +47,7 @@ export default function RootLayout({
             </DataMockerProvider>
           </CheckBrowserProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
