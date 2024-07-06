@@ -4,6 +4,8 @@ import "./globals.css";
 
 import { DataMockerProvider } from "@/providers";
 import { Toaster } from "@/components/ui/sonner";
+import { Header } from "@/containers";
+import { ThemeProvider } from "@/providers/Theme/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +22,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <DataMockerProvider>{children}</DataMockerProvider>
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <DataMockerProvider>
+            <Header />
+            {children}
+            {/* TODO: Add Footer */}
+            <Toaster />
+          </DataMockerProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -31,9 +31,10 @@ export const OutputViewer = () => {
           </Button>
         </div>
         <CodeBlock
-          language="javascript"
+          language="json"
           showLineNumbers={false}
           text={JSON.stringify(items, null, 2)}
+          highlight=""
         />
       </div>
     </div>

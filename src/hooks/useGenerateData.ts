@@ -16,7 +16,6 @@ interface UseGenerateDataArgs {
 export const useGenerateData = ({ onError }: UseGenerateDataArgs) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>([]);
-  console.log("🚀 ~ useGenerateData ~ data:", data);
 
   const onGenerate = async ({ prompt, limit, schema }: OnGenerateArgs) => {
     try {
