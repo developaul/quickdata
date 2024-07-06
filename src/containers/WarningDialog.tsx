@@ -12,6 +12,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -59,21 +60,19 @@ export const WarningDialog = () => {
             <CodeSnippet>window.ai</CodeSnippet>function. It can be easily
             called with Vercel AI SDK&apos;s unified API.
           </p>
-          <div className="w-full pt-2 space-y-2">
-            {error ? (
-              <div>
-                <IncompatibleBrowserAlert
-                  openInstructions={openInstructions}
-                  showSupportedBrowsers={showSupportedBrowsers}
-                />
-              </div>
-            ) : null}
-            <FlagAccordion
-              value={selectedAccordionValue}
-              setValue={setSelectedSelectedAccordionValue}
-            />
-          </div>
         </DialogDescription>
+        <div className="w-full pt-2 space-y-2">
+          {error ? (
+            <IncompatibleBrowserAlert
+              openInstructions={openInstructions}
+              showSupportedBrowsers={showSupportedBrowsers}
+            />
+          ) : null}
+          <FlagAccordion
+            value={selectedAccordionValue}
+            setValue={setSelectedSelectedAccordionValue}
+          />
+        </div>
       </DialogContent>
     </Dialog>
   );
