@@ -38,7 +38,7 @@
 ## 📝 Features
 
 - 📄 Generate data from types.
-- 📷 Generate data from prompts.
+- 📷 Generate data from forms.
 
 ## 🚀 Getting Started
 
