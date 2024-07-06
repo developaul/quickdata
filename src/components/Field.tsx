@@ -1,9 +1,8 @@
-import React, { FC } from "react";
-import { UseFormReturn } from "react-hook-form";
+import React, { FC, useContext } from "react";
 import { Trash2 } from "lucide-react";
 import clsx from "clsx";
 
-import { FieldTypes, IField } from "@/interfaces";
+import { FieldTypes } from "@/interfaces";
 
 import { Input } from "./ui/input";
 import {
@@ -17,20 +16,19 @@ import {
 } from "./ui/select";
 import { FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { Button } from "./ui/button";
+import { PromptContext } from "@/providers";
 
 interface FieldProps {
-  field: IField;
-  onDelete: (index: number) => void;
-
   index: number;
-  form: UseFormReturn<any, any>;
 }
 
-export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
+export const Field: FC<FieldProps> = ({ index }) => {
+  const { removeField, form } = useContext(PromptContext);
+
   const showLabel = index === 0;
 
   const handleDelete = () => {
-    onDelete(index);
+    removeField(index);
   };
 
   return (
@@ -85,7 +83,7 @@ export const Field: FC<FieldProps> = ({ onDelete, form, index }) => {
       <FormField
         control={form.control}
         name={`fields.${index}.description`}
-        render={({ field, formState }) => (
+        render={({ field }) => (
           <FormItem className="flex-1">
             {showLabel && <FormLabel>Description</FormLabel>}
             <FormControl>

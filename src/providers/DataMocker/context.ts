@@ -2,7 +2,7 @@
 
 import { createContext } from "react";
 
-import { PromptEditorForm } from "@/components";
+import { PromptEditorForm } from "@/providers";
 
 interface DataMockerContextArgs {
   generateMockData: (data: PromptEditorForm) => Promise<void>;

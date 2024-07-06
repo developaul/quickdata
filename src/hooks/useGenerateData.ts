@@ -3,7 +3,7 @@ import { chromeai } from "chrome-ai";
 import { CoreMessage, streamObject } from "ai";
 import { z } from "zod";
 
-import { PromptEditorForm } from "@/components";
+import { PromptEditorForm } from "@/providers";
 
 interface OnGenerateArgs extends PromptEditorForm {
   schema: z.ZodType;

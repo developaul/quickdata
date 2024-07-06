@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { DataMockerProvider } from "@/providers";
+import { DataMockerProvider, PromptProvider } from "@/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/containers";
 import { ThemeProvider } from "@/providers/Theme/provider";
@@ -29,10 +29,14 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <DataMockerProvider>
-            <Header />
-            {children}
-            {/* TODO: Add Footer */}
-            <Toaster />
+            <PromptProvider>
+              <Header />
+
+              {children}
+
+              {/* TODO: Add Footer */}
+              <Toaster />
+            </PromptProvider>
           </DataMockerProvider>
         </ThemeProvider>
       </body>
