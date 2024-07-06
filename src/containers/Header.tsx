@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export const Header = () => {
   return (
-    <header className="container px-3 flex items-center justify-end py-3 md:p-6 gap-2  ">
+    <header className="container flex items-center justify-end py-3  gap-2  ">
       <a
         href="https://github.com/developaul/quickdata"
         target="_blank"

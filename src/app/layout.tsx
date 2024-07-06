@@ -2,16 +2,20 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { DataMockerProvider, PromptProvider } from "@/providers";
+import {
+  CheckBrowserProvider,
+  DataMockerProvider,
+  PromptProvider,
+  ThemeProvider,
+} from "@/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/containers";
-import { ThemeProvider } from "@/providers/Theme/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Generate JSON App",
-  description: "Generate any kind of json structure",
+  title: "Quickdata",
+  description: "Generate any kind of json structure from types",
 };
 
 export default function RootLayout({
@@ -28,16 +32,18 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <DataMockerProvider>
-            <PromptProvider>
-              <Header />
+          <CheckBrowserProvider>
+            <DataMockerProvider>
+              <PromptProvider>
+                <Header />
 
-              {children}
+                {children}
 
-              {/* TODO: Add Footer */}
-              <Toaster />
-            </PromptProvider>
-          </DataMockerProvider>
+                {/* TODO: Add Footer */}
+                <Toaster />
+              </PromptProvider>
+            </DataMockerProvider>
+          </CheckBrowserProvider>
         </ThemeProvider>
       </body>
     </html>
