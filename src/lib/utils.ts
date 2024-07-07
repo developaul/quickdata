@@ -1,5 +1,7 @@
+import { FieldType, IField } from "@/interfaces";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { z, ZodTypeAny } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -32,3 +34,42 @@ export async function checkEnv() {
     );
   }
 }
+
+const getEntryZodSchema = ({
+  name,
+  type,
+  fields,
+}: IField): [string, ZodTypeAny] => {
+  switch (type) {
+    case FieldType.String:
+      return [name, z.string()];
+    case FieldType.Number:
+      return [name, z.number()];
+    case FieldType.Boolean:
+      return [name, z.boolean()];
+    case FieldType.Object:
+      const objectSchema = getZodSchema(fields);
+      return [name, objectSchema];
+    case FieldType.ArrayString:
+      return [name, z.array(z.string())];
+    case FieldType.ArrayNumber:
+      return [name, z.array(z.number())];
+    case FieldType.ArrayBoolean:
+      return [name, z.array(z.boolean())];
+    case FieldType.ArrayObject:
+      const arraySchema = getZodSchema(fields);
+      return [name, z.array(arraySchema)];
+    default:
+      return [name, z.string()];
+  }
+};
+
+export const getZodSchema = (fields: IField[]): ZodTypeAny => {
+  if (!fields.length) return z.object({});
+
+  const entries = fields.map(getEntryZodSchema);
+
+  const fieldsSchema = Object.fromEntries(entries);
+
+  return z.object(fieldsSchema);
+};

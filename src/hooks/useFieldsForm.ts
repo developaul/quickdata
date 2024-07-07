@@ -7,7 +7,6 @@ export const useFieldsForm = (prefix: string = "") => {
 
   const nameInputPath = `${prefix}name` as "name";
   const typeInputPath = `${prefix}type` as "type";
-  const descriptionInputPath = `${prefix}description` as "description";
   const fieldsArrayInputPath = `${prefix}fields` as "fields";
 
   const { fields, append, remove } = useFieldArray({
@@ -20,7 +19,6 @@ export const useFieldsForm = (prefix: string = "") => {
       id: Date.now().toString(),
       name: "",
       type: FieldType.String,
-      description: "",
     };
 
     append(newField);
@@ -38,7 +36,6 @@ export const useFieldsForm = (prefix: string = "") => {
     paths: {
       nameInputPath,
       typeInputPath,
-      descriptionInputPath,
       friendsArrayInputPath: fieldsArrayInputPath,
     },
   };

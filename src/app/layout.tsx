@@ -5,8 +5,9 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 import {
+  AIPickerProvider,
+  BrowserAIProvider,
   CheckBrowserProvider,
-  DataMockerProvider,
   PromptProvider,
   ThemeProvider,
 } from "@/providers";
@@ -35,16 +36,19 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CheckBrowserProvider>
-            <DataMockerProvider>
-              <PromptProvider>
-                <Header />
+            {/* TODO: Add REQUEST MODEL AI */}
+            <BrowserAIProvider>
+              <AIPickerProvider>
+                <PromptProvider>
+                  <Header />
 
-                {children}
+                  {children}
 
-                {/* TODO: Add Footer */}
-                <Toaster />
-              </PromptProvider>
-            </DataMockerProvider>
+                  {/* TODO: Add Footer */}
+                  <Toaster />
+                </PromptProvider>
+              </AIPickerProvider>
+            </BrowserAIProvider>
           </CheckBrowserProvider>
         </ThemeProvider>
         <Analytics />

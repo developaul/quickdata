@@ -18,7 +18,7 @@ export const FieldList: FC<Props> = ({ prefix = "" }) => {
 
   return (
     <div
-      className={clsx("flex flex-col", {
+      className={clsx("flex flex-col w-full", {
         ["gap-1"]: !isRoot,
         ["gap-2"]: isRoot,
       })}
@@ -33,7 +33,7 @@ export const FieldList: FC<Props> = ({ prefix = "" }) => {
       )}
 
       {fields.map((field, index) => (
-        <div className="flex gap-2" key={field.id}>
+        <div className="flex-1 flex gap-2" key={field.id}>
           <Button
             className="min-w-10"
             type="button"

@@ -2,13 +2,12 @@
 import { useContext } from "react";
 
 import { OutputViewer, PromptEditor } from "@/components";
-import { DataMockerContext, PromptContext } from "@/providers";
+import { PromptContext } from "@/providers";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
 export const Playground = () => {
-  const { form } = useContext(PromptContext);
-  const { generateMockData } = useContext(DataMockerContext);
+  const { form, handleSubmit } = useContext(PromptContext);
 
   return (
     <section className="flex flex-col gap-4 w-full">
@@ -18,8 +17,9 @@ export const Playground = () => {
         <Form {...form}>
           <form
             className="flex-1 flex flex-col gap-2"
-            onSubmit={form.handleSubmit(generateMockData)}
+            onSubmit={form.handleSubmit(handleSubmit)}
           >
+            {/* CHANGE NAME TO NESTED FORM EDITOR */}
             <PromptEditor />
 
             {/* ADD code editor */}

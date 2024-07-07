@@ -3,9 +3,21 @@ import { z } from "zod";
 const fieldSchema: any = z.lazy(() =>
   z.object({
     name: z.string().trim().min(1, { message: "Required" }),
-    type: z.enum(["string", "number", "boolean", "object"], {
-      message: "Required",
-    }),
+    type: z.enum(
+      [
+        "string",
+        "number",
+        "boolean",
+        "object",
+        "array.string",
+        "array.number",
+        "array.boolean",
+        "array.object",
+      ],
+      {
+        message: "Required",
+      }
+    ),
     description: z.string({ message: "Required" }).optional(),
     fields: z.array(fieldSchema).optional(),
   })

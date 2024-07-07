@@ -1,5 +1,6 @@
 import React, { FC, useContext } from "react";
 import { PlusIcon } from "lucide-react";
+import { UseFormRegister } from "react-hook-form";
 
 import { FieldType, FieldTypes } from "@/interfaces";
 
@@ -16,7 +17,6 @@ import {
 import { FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { Button } from "./ui/button";
 import { PromptContext } from "@/providers";
-import { UseFormRegister } from "react-hook-form";
 
 interface FieldProps {
   paths: Record<string, string>;
@@ -33,17 +33,18 @@ export const Field: FC<FieldProps> = ({
 }) => {
   const { form } = useContext(PromptContext);
 
-  const { nameInputPath, typeInputPath, descriptionInputPath } = paths;
+  const { nameInputPath, typeInputPath } = paths;
 
   const isRoot = prefix.length === 0;
 
   const nameRegister = register(nameInputPath);
   const typeRegister = register(typeInputPath);
-  const descriptionRegister = register(descriptionInputPath);
 
   const typeValue = form.watch(typeRegister.name as any);
 
-  const disabledAddField = typeValue !== FieldType.Object;
+  const disabledAddField = ![FieldType.Object, FieldType.ArrayObject].includes(
+    typeValue
+  );
 
   return (
     <div className="flex gap-2 items-end">
@@ -76,9 +77,9 @@ export const Field: FC<FieldProps> = ({
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Types</SelectLabel>
-                    {FieldTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type}
+                    {FieldTypes.map(({ value, label }) => (
+                      <SelectItem key={value} value={value}>
+                        {label}
                       </SelectItem>
                     ))}
                   </SelectGroup>
@@ -87,21 +88,6 @@ export const Field: FC<FieldProps> = ({
             </FormControl>
           </FormItem>
         )}
-      />
-
-      <FormField
-        control={form.control}
-        name={descriptionRegister.name as any}
-        render={({ field }) => {
-          return (
-            <FormItem className="flex-1">
-              {isRoot && <FormLabel>Description*</FormLabel>}
-              <FormControl>
-                <Input placeholder="description" {...field} />
-              </FormControl>
-            </FormItem>
-          );
-        }}
       />
 
       {!isRoot && (

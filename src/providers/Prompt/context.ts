@@ -3,11 +3,11 @@
 import { createContext } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-import { PromptEditorForm } from "./provider";
-import { IField } from "@/interfaces";
+import { PromptNestedForm } from "./provider";
 
 interface PromptContextArgs {
-  form: UseFormReturn<PromptEditorForm, any, undefined>;
+  form: UseFormReturn<PromptNestedForm, any, undefined>;
+  handleSubmit: (data: PromptNestedForm) => void;
 }
 
 export const PromptContext = createContext<PromptContextArgs>(
