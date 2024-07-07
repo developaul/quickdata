@@ -10,7 +10,6 @@ export default function Home() {
     <main className="container flex flex-col items-center justify-between">
       {/* ADD: description about the project */}
       <Playground />
-      {/* ADD: Footer */}
 
       {showModal && <WarningDialog />}
     </main>

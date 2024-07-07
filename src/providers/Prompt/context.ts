@@ -8,9 +8,6 @@ import { IField } from "@/interfaces";
 
 interface PromptContextArgs {
   form: UseFormReturn<PromptEditorForm, any, undefined>;
-  fields: IField[];
-  addField: () => void;
-  removeField: (index: number) => void;
 }
 
 export const PromptContext = createContext<PromptContextArgs>(

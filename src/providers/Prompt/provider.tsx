@@ -31,33 +31,10 @@ export const PromptProvider: FC<PropsWithChildren> = ({ children }) => {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: "fields",
-  });
-
-  const addField = () => {
-    const newField: IField = {
-      id: Date.now().toString(),
-      name: "",
-      type: FieldType.String,
-      description: "",
-    };
-
-    append(newField);
-  };
-
-  const removeField = (index: number) => {
-    remove(index);
-  };
-
   return (
     <PromptContext.Provider
       value={{
         form,
-        fields,
-        addField,
-        removeField,
       }}
     >
       {children}

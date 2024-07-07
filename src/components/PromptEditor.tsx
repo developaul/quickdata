@@ -1,11 +1,8 @@
 "use client";
 
 import { useContext } from "react";
-import { PlusIcon } from "lucide-react";
 
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Field } from "./Field";
 import {
   FormControl,
   FormField,
@@ -14,9 +11,10 @@ import {
   FormMessage,
 } from "./ui/form";
 import { PromptContext } from "@/providers";
+import { FieldList } from "./FieldList";
 
 export const PromptEditor = () => {
-  const { form, fields, addField } = useContext(PromptContext);
+  const { form } = useContext(PromptContext);
 
   return (
     <>
@@ -58,19 +56,7 @@ export const PromptEditor = () => {
         />
       </div>
 
-      {fields.map((field, index) => (
-        <Field index={index} key={field.id} />
-      ))}
-
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full"
-        onClick={addField}
-      >
-        <PlusIcon />
-        Add Field
-      </Button>
+      <FieldList />
     </>
   );
 };

@@ -2,12 +2,14 @@ export const enum FieldType {
   String = "string",
   Number = "number",
   Boolean = "boolean",
+  Object = "object",
 }
 
 export const FieldTypes = [
-  FieldType.Boolean,
-  FieldType.Number,
   FieldType.String,
+  FieldType.Number,
+  FieldType.Boolean,
+  FieldType.Object,
 ];
 
 export interface IField {
@@ -15,4 +17,5 @@ export interface IField {
   name: string;
   type: FieldType;
   description: string;
+  fields?: IField[];
 }

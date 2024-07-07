@@ -1,8 +1,7 @@
 import React, { FC, useContext } from "react";
-import { Trash2 } from "lucide-react";
-import clsx from "clsx";
+import { PlusIcon } from "lucide-react";
 
-import { FieldTypes } from "@/interfaces";
+import { FieldType, FieldTypes } from "@/interfaces";
 
 import { Input } from "./ui/input";
 import {
@@ -17,35 +16,45 @@ import {
 import { FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { Button } from "./ui/button";
 import { PromptContext } from "@/providers";
+import { UseFormRegister } from "react-hook-form";
 
 interface FieldProps {
-  index: number;
+  paths: Record<string, string>;
+  prefix: string;
+  register: UseFormRegister<any>;
+  onAddField: () => void;
 }
 
-export const Field: FC<FieldProps> = ({ index }) => {
-  const { removeField, form } = useContext(PromptContext);
+export const Field: FC<FieldProps> = ({
+  onAddField,
+  paths,
+  prefix = "",
+  register,
+}) => {
+  const { form } = useContext(PromptContext);
 
-  const showLabel = index === 0;
+  const { nameInputPath, typeInputPath, descriptionInputPath } = paths;
 
-  const handleDelete = () => {
-    removeField(index);
-  };
+  const isRoot = prefix.length === 0;
+
+  const nameRegister = register(nameInputPath);
+  const typeRegister = register(typeInputPath);
+  const descriptionRegister = register(descriptionInputPath);
+
+  const typeValue = form.watch(typeRegister.name as any);
+
+  const disabledAddField = typeValue !== FieldType.Object;
 
   return (
     <div className="flex gap-2 items-end">
       <FormField
         control={form.control}
-        name={`fields.${index}.name`}
-        render={({ field, formState }) => {
-          const hasError = (formState.errors as any).fields?.[index]?.name;
+        name={nameRegister.name as any}
+        render={({ field }) => {
           return (
             <FormItem className="flex-1">
-              {showLabel && <FormLabel>Name*</FormLabel>}
-              <FormControl
-                className={clsx({
-                  ["border-red-500 focus-visible:outline-red-500"]: hasError,
-                })}
-              >
+              {isRoot && <FormLabel>Name*</FormLabel>}
+              <FormControl>
                 <Input placeholder="name" {...field} />
               </FormControl>
             </FormItem>
@@ -55,10 +64,10 @@ export const Field: FC<FieldProps> = ({ index }) => {
 
       <FormField
         control={form.control}
-        name={`fields.${index}.type`}
+        name={typeRegister.name as any}
         render={({ field }) => (
           <FormItem className="flex-1">
-            {showLabel && <FormLabel>Type*</FormLabel>}
+            {isRoot && <FormLabel>Type*</FormLabel>}
             <FormControl>
               <Select onValueChange={field.onChange} value={field.value}>
                 <SelectTrigger>
@@ -82,20 +91,31 @@ export const Field: FC<FieldProps> = ({ index }) => {
 
       <FormField
         control={form.control}
-        name={`fields.${index}.description`}
-        render={({ field }) => (
-          <FormItem className="flex-1">
-            {showLabel && <FormLabel>Description</FormLabel>}
-            <FormControl>
-              <Input placeholder="description" {...field} />
-            </FormControl>
-          </FormItem>
-        )}
+        name={descriptionRegister.name as any}
+        render={({ field }) => {
+          return (
+            <FormItem className="flex-1">
+              {isRoot && <FormLabel>Description*</FormLabel>}
+              <FormControl>
+                <Input placeholder="description" {...field} />
+              </FormControl>
+            </FormItem>
+          );
+        }}
       />
 
-      <Button size="icon" variant="outline" onClick={handleDelete}>
-        <Trash2 size={16} />
-      </Button>
+      {!isRoot && (
+        <Button
+          disabled={disabledAddField}
+          className="min-w-10"
+          type="button"
+          size="icon"
+          variant="outline"
+          onClick={onAddField}
+        >
+          <PlusIcon size={16} />
+        </Button>
+      )}
     </div>
   );
 };
