@@ -8,7 +8,7 @@ export const AIPicker = () => {
   const { model, handleChangeModel } = useContext(AIPickerContext);
 
   return (
-    <Tabs value={model} className="w-[400px]">
+    <Tabs value={model} className="w-[200px]">
       <TabsList onChange={console.log}>
         {AIModels.map(({ value, label }) => (
           <TabsTrigger
