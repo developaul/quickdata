@@ -4,8 +4,8 @@ import { FC, PropsWithChildren, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { AIModel, AIPickerContext } from "../AIPicker";
-import { FieldType, IField } from "@/interfaces";
+import { AIPickerContext } from "../AIPicker";
+import { FieldType, IField, AIModel } from "@/interfaces";
 import { BrowserAIContext } from "../BrowserAI";
 import { formSchema } from "@/lib/schemas";
 import { PromptContext } from "./context";
@@ -28,7 +28,7 @@ export const PromptProvider: FC<PropsWithChildren> = ({ children }) => {
       fields: [
         {
           id: Date.now().toString(),
-          name: "name",
+          name: "title",
           type: FieldType.String,
         },
       ],
@@ -42,7 +42,7 @@ export const PromptProvider: FC<PropsWithChildren> = ({ children }) => {
         return;
     }
 
-    console.error("Model not supported");
+    console.error("AI Model not supported");
   };
 
   return (

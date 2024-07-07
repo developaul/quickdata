@@ -1,11 +1,11 @@
 "use client";
 
 import { createContext } from "react";
-import { AIModel } from "./provider";
+import { AIModel } from "@/interfaces";
 
 interface AIPickerContextArgs {
   model: AIModel;
-  handleChangeModel: (model: AIModel) => void;
+  handleChangeModel: (model: AIModel) => () => void;
   data: any;
   loading: boolean;
 }

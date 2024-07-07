@@ -19,6 +19,7 @@ export const useFieldsForm = (prefix: string = "") => {
       id: Date.now().toString(),
       name: "",
       type: FieldType.String,
+      fields: [],
     };
 
     append(newField);

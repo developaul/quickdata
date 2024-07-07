@@ -1,7 +1,7 @@
 "use client";
 import { useContext } from "react";
 
-import { OutputViewer, PromptEditor } from "@/components";
+import { AIPicker, OutputViewer, PromptEditor } from "@/components";
 import { PromptContext } from "@/providers";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -12,6 +12,8 @@ export const Playground = () => {
   return (
     <section className="flex flex-col gap-4 w-full">
       {/* Add: Descriptions and examples topics to start */}
+
+      <AIPicker />
 
       <div className="flex flex-col md:flex-row gap-4">
         <Form {...form}>

@@ -4,11 +4,7 @@ import { FC, PropsWithChildren, useContext, useMemo, useState } from "react";
 
 import { AIPickerContext } from "./context";
 import { BrowserAIContext } from "../BrowserAI";
-
-export enum AIModel {
-  Gpt4o = "gpt-4o",
-  chromeAI = "chrome-ai",
-}
+import { AIModel } from "@/interfaces";
 
 export const AIPickerProvider: FC<PropsWithChildren> = ({ children }) => {
   const { data: browserAIData, loading: browserAILoading } =
@@ -16,7 +12,7 @@ export const AIPickerProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const [model, setModel] = useState<AIModel>(AIModel.chromeAI);
 
-  const handleChangeModel = (model: AIModel) => {
+  const handleChangeModel = (model: AIModel) => () => {
     setModel(model);
   };
 
