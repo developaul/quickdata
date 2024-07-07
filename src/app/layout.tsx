@@ -10,6 +10,7 @@ import {
   CheckBrowserProvider,
   PromptProvider,
   ThemeProvider,
+  CloudAIProvider,
 } from "@/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/containers";
@@ -36,19 +37,20 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CheckBrowserProvider>
-            {/* TODO: Add REQUEST MODEL AI */}
-            <BrowserAIProvider>
-              <AIPickerProvider>
-                <PromptProvider>
-                  <Header />
+            <CloudAIProvider>
+              <BrowserAIProvider>
+                <AIPickerProvider>
+                  <PromptProvider>
+                    <Header />
 
-                  {children}
+                    {children}
 
-                  {/* TODO: Add Footer */}
-                  <Toaster />
-                </PromptProvider>
-              </AIPickerProvider>
-            </BrowserAIProvider>
+                    {/* TODO: Add Footer */}
+                    <Toaster />
+                  </PromptProvider>
+                </AIPickerProvider>
+              </BrowserAIProvider>
+            </CloudAIProvider>
           </CheckBrowserProvider>
         </ThemeProvider>
         <Analytics />
