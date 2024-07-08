@@ -18,6 +18,7 @@
 
 <div align="center">
 
+![Next.js Badge](https://img.shields.io/badge/Next.js&nbsp;14-000?logo=nextdotjs&logoColor=fff&style=flat)
 ![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat)
 
 </div>
@@ -63,7 +64,30 @@ npm install -g bun
 bun install
 ```
 
-3. Run the development server:
+3. Create a **.env** file with the following content:
+
+> 🚧 The environment variables must match the following schema
+
+```bash
+# OpenAI Provider
+OPENAI_API_KEY=
+
+# Vercel KV Store
+KV_URL=
+KV_REST_API_URL=
+KV_REST_API_TOKEN=
+KV_REST_API_READ_ONLY_TOKEN=
+```
+
+**OpenAI API Key**
+
+- [Get your OpenAI API key](https://platform.openai.com/account/api-keys).
+
+**Vercel KV Store**
+
+- [Get your Vercel KV Store](https://vercel.com/docs/storage/vercel-kv/quickstart).
+
+4. Run the development server:
 
 ```bash
 bun run dev
