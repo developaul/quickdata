@@ -26,7 +26,7 @@ const fieldSchema: any = z.lazy(() =>
 
 export const formSchema = z.object({
   prompt: z.string().trim().min(1, { message: "Required" }),
-  PromptType: z.enum([PromptType.Form, PromptType.TypeScript], {
+  promptType: z.enum([PromptType.Form, PromptType.TypeScript], {
     message: "Required",
   }),
   model: z.enum([AIModel.chromeAI, AIModel.Gpt4o], {
