@@ -1,10 +1,11 @@
 "use client";
 
+import { useContext } from "react";
 import { Playground, WarningDialog } from "@/containers";
-import { useCheckBrowser } from "@/hooks";
+import { CheckBrowserContext } from "@/providers";
 
 export default function Home() {
-  const { showModal } = useCheckBrowser();
+  const { showModal } = useContext(CheckBrowserContext);
 
   return (
     <main className="container flex flex-col items-center justify-between">

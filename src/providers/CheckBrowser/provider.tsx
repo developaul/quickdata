@@ -1,12 +1,33 @@
 "use client";
 
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 
 import { CheckBrowserContext } from "./context";
-import { useCheckBrowser } from "@/hooks";
+import { checkEnv } from "@/lib/utils";
 
 export const CheckBrowserProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { error, showModal, openModal, closeModal } = useCheckBrowser();
+  const [error, setError] = useState<any>();
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => {
+    console.log("close modal");
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    const checkBrowser = async () => {
+      try {
+        await checkEnv();
+      } catch (error) {
+        console.error(error);
+        if (error instanceof Error) {
+          setError(error?.message);
+        }
+      }
+    };
+    checkBrowser();
+  }, []);
 
   return (
     <CheckBrowserContext.Provider

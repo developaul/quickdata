@@ -12,28 +12,26 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
 export const WarningDialog = () => {
-  const { error } = useContext(CheckBrowserContext);
+  const { showModal, error, closeModal } = useContext(CheckBrowserContext);
 
   const [selectedAccordionValue, setSelectedSelectedAccordionValue] = useState<
     string | undefined
   >();
   const openInstructions = () => setSelectedSelectedAccordionValue("item-4");
+
   const showSupportedBrowsers = () =>
     setSelectedSelectedAccordionValue("item-3");
 
   return (
-    <Dialog open>
-      <DialogContent>
+    <Dialog open={showModal}>
+      <DialogContent onClose={closeModal}>
         <DialogHeader>
-          <DialogTitle className="text-3xl font-bold">
-            Next.js Chrome AI Quickdata
-          </DialogTitle>
+          <DialogTitle className="text-3xl font-bold">Chrome AI</DialogTitle>
         </DialogHeader>
         <DialogDescription>
           <p className="">
