@@ -1,24 +1,23 @@
 "use client";
 
-import { FC, PropsWithChildren, useContext, useMemo, useState } from "react";
+import { FC, PropsWithChildren, useContext, useMemo } from "react";
 
 import { BrowserAIContext } from "../BrowserAI";
 import { CloudAIContext } from "../CloudAI";
-import { AIPickerContext } from "./context";
+import { DataContext } from "./context";
+import { PromptContext } from "../Prompt";
 import { AIModel } from "@/interfaces";
 
-export const AIPickerProvider: FC<PropsWithChildren> = ({ children }) => {
+export const DataProvider: FC<PropsWithChildren> = ({ children }) => {
   const { data: browserAIData, loading: browserAILoading } =
     useContext(BrowserAIContext);
 
   const { data: cloudAIData, loading: cloudAILoading } =
     useContext(CloudAIContext);
 
-  const [model, setModel] = useState<AIModel>(AIModel.chromeAI);
+  const { form } = useContext(PromptContext);
 
-  const handleChangeModel = (model: AIModel) => () => {
-    setModel(model);
-  };
+  const model = form.watch("model");
 
   const data = useMemo(() => {
     if (model === AIModel.chromeAI) return browserAIData;
@@ -35,10 +34,8 @@ export const AIPickerProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [browserAILoading, cloudAILoading, model]);
 
   return (
-    <AIPickerContext.Provider
-      value={{ model, handleChangeModel, data, loading }}
-    >
+    <DataContext.Provider value={{ data, loading }}>
       {children}
-    </AIPickerContext.Provider>
+    </DataContext.Provider>
   );
 };

@@ -1,11 +1,17 @@
 import { useContext } from "react";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 
-import { AIPickerContext } from "@/providers";
-import { AIModels } from "@/interfaces";
+import { PromptContext } from "@/providers";
+import { AIModel, AIModels } from "@/interfaces";
 
 export const AIPicker = () => {
-  const { model, handleChangeModel } = useContext(AIPickerContext);
+  const { form } = useContext(PromptContext);
+
+  const model = form.watch("model");
+
+  const handleChangeModel = (model: AIModel) => () => {
+    form.setValue("model", model);
+  };
 
   return (
     <Tabs value={model} className="w-[200px]">

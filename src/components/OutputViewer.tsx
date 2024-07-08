@@ -5,12 +5,12 @@ import { toast } from "sonner";
 import { CopyIcon } from "lucide-react";
 import { CodeBlock } from "@atlaskit/code";
 
-import { AIPickerContext } from "@/providers";
+import { DataContext } from "@/providers";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
 export const OutputViewer = () => {
-  const { data: items } = useContext(AIPickerContext);
+  const { data: items } = useContext(DataContext);
 
   const handleCopyClipboard = async () => {
     try {

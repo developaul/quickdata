@@ -1,4 +1,4 @@
-import { FieldType, PromptType } from "@/interfaces";
+import { AIModel, FieldType, PromptType } from "@/interfaces";
 import { z } from "zod";
 
 const fieldSchema: any = z.lazy(() =>
@@ -27,6 +27,9 @@ const fieldSchema: any = z.lazy(() =>
 export const formSchema = z.object({
   prompt: z.string().trim().min(1, { message: "Required" }),
   PromptType: z.enum([PromptType.Form, PromptType.TypeScript], {
+    message: "Required",
+  }),
+  model: z.enum([AIModel.chromeAI, AIModel.Gpt4o], {
     message: "Required",
   }),
   limit: z.coerce

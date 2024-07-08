@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 import {
-  AIPickerProvider,
+  DataProvider,
   BrowserAIProvider,
   CheckBrowserProvider,
   PromptProvider,
@@ -41,16 +41,16 @@ export default function RootLayout({
             <CheckBrowserProvider>
               <CloudAIProvider>
                 <BrowserAIProvider>
-                  <AIPickerProvider>
-                    <PromptProvider>
+                  <PromptProvider>
+                    <DataProvider>
                       <Header />
 
                       {children}
 
                       {/* TODO: Add Footer */}
                       <Toaster />
-                    </PromptProvider>
-                  </AIPickerProvider>
+                    </DataProvider>
+                  </PromptProvider>
                 </BrowserAIProvider>
               </CloudAIProvider>
             </CheckBrowserProvider>

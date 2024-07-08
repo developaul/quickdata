@@ -4,7 +4,11 @@ import { z } from "zod";
 import { PromptNestedForm } from "@/providers";
 import { getZodSchema } from "./utils";
 
-export const getPrompt = ({ fields, limit, prompt }: PromptNestedForm) => {
+export const getPrompt = ({
+  fields,
+  limit,
+  prompt,
+}: Pick<PromptNestedForm, "fields" | "limit" | "prompt">) => {
   const schema = getZodSchema(fields);
 
   const systemMessage: CoreMessage = {
