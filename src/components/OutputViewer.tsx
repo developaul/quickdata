@@ -22,8 +22,8 @@ export const OutputViewer = () => {
   };
 
   return (
-    <div className="flex-1">
-      <div className="relative scrollbar-hide max-h-[400px] overflow-auto shadow-sm min-h-[350px] border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 w-full rounded-lg p-1">
+    <div className="flex-1 flex flex-col">
+      <div className="flex-1 relative scrollbar-hide max-h-[400px] overflow-auto shadow-sm min-h-[350px] border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 w-full rounded-lg p-1">
         <div className="absolute right-3 top-3 flex items-center justify-end gap-2">
           <Badge variant={"outline"}>{items?.length ?? 0} items</Badge>
           <Button onClick={handleCopyClipboard} variant="outline" size="sm">

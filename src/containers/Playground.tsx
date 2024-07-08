@@ -13,20 +13,17 @@ export const Playground = () => {
     <section className="flex flex-col gap-4 w-full">
       {/* Add: Descriptions and examples topics to start */}
 
-      <AIPicker />
-
       <div className="flex flex-col md:flex-row gap-4">
         <Form {...form}>
           <form
             className="flex-1 flex flex-col gap-2"
             onSubmit={form.handleSubmit(handleSubmit)}
           >
-            {/* CHANGE NAME TO NESTED FORM EDITOR */}
+            <AIPicker />
+
             <PromptEditor />
 
-            {/* ADD code editor */}
-
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full mt-4">
               Generate JSON
             </Button>
           </form>

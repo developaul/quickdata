@@ -4,7 +4,7 @@ import { FC, PropsWithChildren, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { FieldType, IField, AIModel } from "@/interfaces";
+import { FieldType, IField, AIModel, PromptType } from "@/interfaces";
 import { CheckBrowserContext } from "../CheckBrowser";
 import { BrowserAIContext } from "../BrowserAI";
 import { AIPickerContext } from "../AIPicker";
@@ -16,6 +16,7 @@ export interface PromptNestedForm {
   prompt: string;
   limit: number;
   fields: IField[];
+  promptType: PromptType;
 }
 
 export const PromptProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -29,6 +30,7 @@ export const PromptProvider: FC<PropsWithChildren> = ({ children }) => {
     defaultValues: {
       prompt: "Top science fiction books read in 2020",
       limit: 10,
+      promptType: PromptType.Form,
       fields: [
         {
           id: Date.now().toString(),

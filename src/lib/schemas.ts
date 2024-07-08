@@ -1,3 +1,4 @@
+import { FieldType, PromptType } from "@/interfaces";
 import { z } from "zod";
 
 const fieldSchema: any = z.lazy(() =>
@@ -5,14 +6,14 @@ const fieldSchema: any = z.lazy(() =>
     name: z.string().trim().min(1, { message: "Required" }),
     type: z.enum(
       [
-        "string",
-        "number",
-        "boolean",
-        "object",
-        "array.string",
-        "array.number",
-        "array.boolean",
-        "array.object",
+        FieldType.String,
+        FieldType.Number,
+        FieldType.Boolean,
+        FieldType.Object,
+        FieldType.ArrayString,
+        FieldType.ArrayNumber,
+        FieldType.ArrayBoolean,
+        FieldType.ArrayObject,
       ],
       {
         message: "Required",
@@ -25,6 +26,9 @@ const fieldSchema: any = z.lazy(() =>
 
 export const formSchema = z.object({
   prompt: z.string().trim().min(1, { message: "Required" }),
+  PromptType: z.enum([PromptType.Form, PromptType.TypeScript], {
+    message: "Required",
+  }),
   limit: z.coerce
     .number({ message: "Must be a number" })
     .min(1, { message: "Must be greater than 0" })

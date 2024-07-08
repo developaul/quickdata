@@ -10,15 +10,20 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
+import { PromptPicker } from "./PromptPicker";
 import { PromptContext } from "@/providers";
+import { PromptType } from "@/interfaces";
+import { CodeEditor } from "./CodeEditor";
 import { FieldList } from "./FieldList";
 
 export const PromptEditor = () => {
   const { form } = useContext(PromptContext);
 
+  const promptType = form.watch("promptType");
+
   return (
     <>
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-4">
         <FormField
           control={form.control}
           name="prompt"
@@ -56,7 +61,11 @@ export const PromptEditor = () => {
         />
       </div>
 
-      <FieldList />
+      <PromptPicker />
+
+      {promptType === PromptType.Form && <FieldList />}
+
+      {promptType === PromptType.TypeScript && <CodeEditor />}
     </>
   );
 };
